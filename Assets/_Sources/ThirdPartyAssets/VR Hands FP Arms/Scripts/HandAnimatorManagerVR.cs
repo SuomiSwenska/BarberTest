@@ -32,44 +32,14 @@ public class HandAnimatorManagerVR : MonoBehaviour
 		handAnimator = GetComponent<Animator> ();
 	}
 
-    //// Update is called once per frame
-    //void Update()
-    //{
-    //    //if (Input.GetKeyUp (changeKey)) {
-    //    //	currentState = (currentState + 1) % (numberOfAnimations + 1);
-    //    //}
-
-    //    //if (Input.GetAxis (holdKey) > 0) {
-    //    //	hold = true;
-    //    //} else
-    //    //	hold = false;
-
-    //    //if (Input.GetKey (actionKey)) {
-    //    //	action = true;
-    //    //} else
-    //    //	action = false;
-
-
-    //    //if (lastState != currentState) {
-    //    //	lastState = currentState;
-    //    //	handAnimator.SetInteger ("State", currentState);
-    //    //	TurnOnState (currentState);
-    //    //}
-
-    //    handAnimator.SetBool("Action", action);
-    //    handAnimator.SetBool("Hold", hold);
-    //    //handAnimator.CrossFade("D",);
-
-    //}
-
     public void TurnOnState (int stateNumber)
 	{
         foreach (var item in stateModels)
         {
             if (item.stateNumber == stateNumber && !item.go.activeSelf)
                 item.go.SetActive(true);
-            //else if (item.go.activeSelf)
-            //    item.go.SetActive(false);
+            else if (item.go.activeSelf)
+                item.go.SetActive(false);
         }
     }
 

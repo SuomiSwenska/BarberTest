@@ -24,19 +24,8 @@ public class Cutter : MonoBehaviour
         }
     }
 
-    //private void OnTriggerEnter(Collider other)
-    //{
-    //    if (other.gameObject.GetComponent<ScissorsBlade>() != null)
-    //    {
-    //        var contact : ContactPoint = other.;
-    //        contact.point; //this is the Vector3 position of the point of contact
-    //        _haircutSystem.BladeContact(other.transform.position, this);
-    //    }
-    //}
-
     public void RedrawCuttingMesh(Vector3[] vertices)
     {
-        Debug.LogError("RedrawCuttingMesh");
         ChangeMesh(vertices);
     }
 

@@ -32,7 +32,6 @@ public class HaircutSystem : MonoBehaviour
 
     private async Task CalculateVertexHairForDestroyAsync(Vector3[] vertices, Vector3 contactPoint, Cutter cutter)
     {
-        Debug.LogError("Try to CalculateVertexHairForDestroyAsync");
         List<Vector3> VerticesOnFinishPosition = new List<Vector3>();
 
         var hitAddressInCutting = Instantiate(new GameObject(), contactPoint, Quaternion.identity);
