@@ -6,25 +6,25 @@ public class ScissorsBlade : MonoBehaviour
 {
     private Rigidbody _rigidbody;
     [SerializeField] private Transform _bladePivotTransform;
-    [SerializeField] private Transform _bladePivotFarTransform;
+    private BoxCollider _boxCollider;
 
-    private Transform _targetTransform;
+    private bool isMove = true;
 
     private void Awake()
     {
         _rigidbody = GetComponent<Rigidbody>();
-        _targetTransform = _bladePivotFarTransform;
+        _boxCollider = GetComponent<BoxCollider>();
     }
 
     private void LateUpdate()
     {
-        _rigidbody.MovePosition(_targetTransform.TransformPoint(_targetTransform.localPosition));
+        _rigidbody.MovePosition(_bladePivotTransform.TransformPoint(_bladePivotTransform.localPosition));
     }
 
     public IEnumerator SetCutPosition()
     {
-        _targetTransform = _bladePivotTransform;
-        yield return new WaitForSeconds(0.3f);
-        _targetTransform = _bladePivotFarTransform;
+        _boxCollider.enabled = true;
+        yield return new WaitForSeconds(0.1f);
+        _boxCollider.enabled = false;
     }
 }
