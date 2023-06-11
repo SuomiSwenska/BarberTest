@@ -140,7 +140,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!199 &20617500
 ParticleSystemRenderer:
   serializedVersion: 6
@@ -183,7 +183,7 @@ ParticleSystemRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_RenderMode: 4
+  m_RenderMode: 0
   m_MeshDistribution: 0
   m_SortMode: 0
   m_MinParticleSize: 0
@@ -200,7 +200,7 @@ ParticleSystemRenderer:
   m_UseCustomVertexStreams: 0
   m_EnableGPUInstancing: 1
   m_ApplyActiveColorSpace: 1
-  m_AllowRoll: 1
+  m_AllowRoll: 0
   m_FreeformStretching: 0
   m_RotateWithStretchDirection: 1
   m_VertexStreams: 00010304
@@ -221,8 +221,8 @@ ParticleSystem:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 20617499}
   serializedVersion: 8
-  lengthInSec: 0.11
-  simulationSpeed: 0.2
+  lengthInSec: 0.05
+  simulationSpeed: 0.1
   stopAction: 0
   cullingMode: 0
   ringBufferMode: 0
@@ -465,8 +465,8 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 1.5
-      minScalar: 0.1
+      scalar: 0.12
+      minScalar: 0.02
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -782,14 +782,14 @@ ParticleSystem:
         m_RotationOrder: 4
     randomizeRotationDirection: 1
     gravitySource: 0
-    maxNumParticles: 300
+    maxNumParticles: 100
     customEmitterVelocity: {x: 0, y: 0, z: 0}
     size3D: 0
     rotation3D: 0
     gravityModifier:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 1
+      scalar: 3
       minScalar: 0
       maxCurve:
         serializedVersion: 2
@@ -1048,7 +1048,7 @@ ParticleSystem:
     rateOverTime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 150
+      scalar: 120
       minScalar: 10
       maxCurve:
         serializedVersion: 2
@@ -1101,7 +1101,7 @@ ParticleSystem:
     rateOverDistance:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 150
+      scalar: 120
       minScalar: 0
       maxCurve:
         serializedVersion: 2
@@ -4931,7 +4931,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 20617499}
   m_LocalRotation: {x: 1, y: -0, z: -0, w: 0}
-  m_LocalPosition: {x: -0.3261, y: 1.359, z: -0.9428}
+  m_LocalPosition: {x: -0.3261, y: 1.4502, z: -0.9428}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -10528,7 +10528,7 @@ Light:
   m_GameObject: {fileID: 626795655}
   m_Enabled: 1
   serializedVersion: 10
-  m_Type: 0
+  m_Type: 2
   m_Shape: 0
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Intensity: 3
@@ -10570,10 +10570,10 @@ Light:
     serializedVersion: 2
     m_Bits: 4294967295
   m_RenderingLayerMask: 1
-  m_Lightmapping: 1
+  m_Lightmapping: 4
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
-  m_BounceIntensity: 0
+  m_BounceIntensity: 3
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
   m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
@@ -10870,7 +10870,7 @@ Light:
   m_GameObject: {fileID: 822525531}
   m_Enabled: 1
   serializedVersion: 10
-  m_Type: 0
+  m_Type: 2
   m_Shape: 0
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Intensity: 3
@@ -10879,7 +10879,7 @@ Light:
   m_InnerSpotAngle: 4
   m_CookieSize: 10
   m_Shadows:
-    m_Type: 1
+    m_Type: 2
     m_Resolution: -1
     m_CustomResolution: -1
     m_Strength: 1
@@ -10912,7 +10912,7 @@ Light:
     serializedVersion: 2
     m_Bits: 4294967295
   m_RenderingLayerMask: 1
-  m_Lightmapping: 2
+  m_Lightmapping: 4
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 3
@@ -11327,6 +11327,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _movingSensitivityLimit: 0.5
+  _movingMagnitude: 0
 --- !u!4 &1099382102 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 250721976274657476, guid: 20566dbe019a0784f8929fecfa02e57d, type: 3}
@@ -11593,6 +11594,37 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1308494450622854898, guid: 1708cd268ea94ed40b27d772c0bc87af, type: 3}
   m_PrefabInstance: {fileID: 670879007}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1420153088
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1420153089}
+  m_Layer: 0
+  m_Name: HairTuftBlack
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &1420153089
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1420153088}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 11
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1684009175
 GameObject:
   m_ObjectHideFlags: 0
@@ -11833,8 +11865,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   force: 0.03
   delay: 0.5
-  hairEffectParticleGO: {fileID: 20617499}
-  isEnableEffect: 0
+  hairEffectParticleGOPrefab: {fileID: 20617499}
+  isEnableEffect: 1
 --- !u!65 &1773960423
 BoxCollider:
   m_ObjectHideFlags: 0

@@ -8,8 +8,10 @@ public class HaircutSystem : MonoBehaviour
     private bool _isCuttingPossible = true;
     public float force;
     public float delay;
-    public GameObject hairEffectParticleGO;
+    public GameObject hairEffectParticleGOPrefab;
     public bool isEnableEffect;
+
+    private int effectCurrentIndex;
 
     public void BladeContact(Vector3 hitPosition, Cutter cutter)
     {
@@ -74,14 +76,14 @@ public class HaircutSystem : MonoBehaviour
     {
         _isCuttingPossible = false;
         yield return new WaitForSeconds(delay);
-        hairEffectParticleGO.SetActive(false);
         _isCuttingPossible = true;
     }
 
     private void PlayEffect(Vector3 contactPosition)
     {
-        hairEffectParticleGO.transform.position = contactPosition;
-        hairEffectParticleGO.SetActive(true);
+        GameObject newEffectGO = Instantiate(hairEffectParticleGOPrefab, contactPosition, Quaternion.identity);
+        newEffectGO.SetActive(true);
+        Destroy(newEffectGO, 3f);
     }
 }
 
