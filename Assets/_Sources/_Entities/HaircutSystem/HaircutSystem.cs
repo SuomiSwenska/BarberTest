@@ -8,6 +8,8 @@ public class HaircutSystem : MonoBehaviour
     private bool _isCuttingPossible = true;
     public float force;
     public float delay;
+    public GameObject hairEffectParticleGO;
+    public bool isEnableEffect;
 
     public void BladeContact(Vector3 hitPosition, Cutter cutter)
     {
@@ -23,10 +25,10 @@ public class HaircutSystem : MonoBehaviour
         StartCoroutine(CuttingCoolDownCoroutine());
 
         var vertices = cutter.Vertices;
-        var contactPoint = hitPosition;
 
-        await CalculateVertexHairForDestroyAsync(vertices, contactPoint, cutter);
+        await CalculateVertexHairForDestroyAsync(vertices, hitPosition, cutter);
 
+        if (isEnableEffect) PlayEffect(hitPosition);
         cutter.RedrawCuttingMesh(vertices);
     }
 
@@ -72,7 +74,14 @@ public class HaircutSystem : MonoBehaviour
     {
         _isCuttingPossible = false;
         yield return new WaitForSeconds(delay);
+        hairEffectParticleGO.SetActive(false);
         _isCuttingPossible = true;
+    }
+
+    private void PlayEffect(Vector3 contactPosition)
+    {
+        hairEffectParticleGO.transform.position = contactPosition;
+        hairEffectParticleGO.SetActive(true);
     }
 }
 

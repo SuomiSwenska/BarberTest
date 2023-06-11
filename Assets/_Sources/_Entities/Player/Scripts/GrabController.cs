@@ -6,6 +6,7 @@ using UnityEngine.XR.Interaction.Toolkit;
 public class GrabController : MonoBehaviour
 {
     private HandAnimatorManagerVR _handAnimatorManagerVR;
+    private HandSound _handSound;
     [SerializeField] private float _crossFadeTimeToGrab;
     [SerializeField] private float _crossFadeTimeToCut;
     [SerializeField] private float _crossFadeTimeToOpen;
@@ -17,7 +18,9 @@ public class GrabController : MonoBehaviour
     [SerializeField] private InputHelpers.Button _triggerButton = InputHelpers.Button.Trigger;
     [SerializeField] private InputHelpers.Button _grabButton = InputHelpers.Button.Grip;
 
+    [SerializeField] private Transform _scissorsTransform;
     [SerializeField] private ScissorsBlade _scissorsBlade;
+    [SerializeField] private TakableScissors _takableScissors;
 
     private int _grabPosAnimationIndex;
     private int _scissorsCloseAnimationIndex;
@@ -25,11 +28,15 @@ public class GrabController : MonoBehaviour
     private bool _triggerPressed;
     private bool _grabPressed;
 
+    private bool _isTakePossible;
+    private bool _isHaveScissors;
+
     private void Awake()
     {
         _handAnimatorManagerVR = GetComponent<HandAnimatorManagerVR>();
         _grabPosAnimationIndex = Animator.StringToHash(_grabAnimationName);
         _scissorsCloseAnimationIndex = Animator.StringToHash(_cutAnimationName);
+        _handSound = GetComponent<HandSound>();
     }
 
     void Update()
@@ -54,7 +61,7 @@ public class GrabController : MonoBehaviour
         _triggerPressed = state;
         Debug.Log("triggerPressed changed to " + (state));
 
-        if (_triggerPressed) CloseScissors();
+        if (_triggerPressed && _isHaveScissors) CloseScissors();
     }
 
     private void GrabHandler(bool state)
@@ -62,8 +69,8 @@ public class GrabController : MonoBehaviour
         _grabPressed = state;
         Debug.Log("grabPressed changed to " + (state));
 
-        if (_grabPressed) GrabScissors();
-        else _handAnimatorManagerVR.TurnOnState(0);
+        if (_grabPressed && _isTakePossible) GrabScissors();
+        else if (!_grabPressed && _isHaveScissors) DropScissors();
     }
 
 
@@ -71,12 +78,25 @@ public class GrabController : MonoBehaviour
     {
         _handAnimatorManagerVR.TurnOnState(1);
         _handAnimatorManagerVR.AnimatorCrossFade(_grabPosAnimationIndex, _crossFadeTimeToGrab);
+        _takableScissors.Take();
+        _isHaveScissors = true;
     }
 
     private void CloseScissors()
     {
+        _handSound.PlayScissorsCutSound();
         _handAnimatorManagerVR.AnimatorCrossFade(_scissorsCloseAnimationIndex, _crossFadeTimeToCut);
         StartCoroutine(ScissorsOpeneCoroutine());
+    }
+
+    private void DropScissors()
+    {
+        _handAnimatorManagerVR.TurnOnState(0);
+        _isHaveScissors = false;
+        _takableScissors.transform.position = _scissorsTransform.position;
+        _takableScissors.Drop();
+        _takableScissors = null;
+        _isTakePossible = false;
     }
 
     private IEnumerator ScissorsOpeneCoroutine()
@@ -85,5 +105,25 @@ public class GrabController : MonoBehaviour
         StartCoroutine(_scissorsBlade.SetCutPosition());
         yield return new WaitForSeconds(_crossFadeTimeToOpen * 0.7f);
         _handAnimatorManagerVR.AnimatorCrossFade(_grabPosAnimationIndex, _crossFadeTimeToOpen);
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        TakableScissors takableScissors = other.GetComponent<TakableScissors>();
+        if (takableScissors is TakableScissors)
+        {
+            _isTakePossible = true;
+            _takableScissors = takableScissors;
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        TakableScissors takableScissors = other.GetComponent<TakableScissors>();
+        if (takableScissors is TakableScissors)
+        {
+            _isTakePossible = false;
+            _takableScissors = null;
+        }
     }
 }
