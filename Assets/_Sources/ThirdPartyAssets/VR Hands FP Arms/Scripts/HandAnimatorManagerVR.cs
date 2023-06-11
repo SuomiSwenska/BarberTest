@@ -48,5 +48,10 @@ public class HandAnimatorManagerVR : MonoBehaviour
 		handAnimator.SetBool("ScissorsPos", true);
 		handAnimator.CrossFade(stateIndex, time);
 	}
+
+	public void IdleHandAnimation()
+    {
+		handAnimator.SetBool("ScissorsPos", false);
+	}
 }
 

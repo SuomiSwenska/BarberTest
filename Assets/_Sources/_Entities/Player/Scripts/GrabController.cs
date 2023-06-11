@@ -97,6 +97,7 @@ public class GrabController : MonoBehaviour
         _takableScissors.Drop();
         _takableScissors = null;
         _isTakePossible = false;
+        _handAnimatorManagerVR.IdleHandAnimation();
     }
 
     private IEnumerator ScissorsOpeneCoroutine()
