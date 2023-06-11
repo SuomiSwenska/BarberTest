@@ -80,6 +80,7 @@ public class GrabController : MonoBehaviour
         _handAnimatorManagerVR.AnimatorCrossFade(_grabPosAnimationIndex, _crossFadeTimeToGrab);
         _takableScissors.Take();
         _isHaveScissors = true;
+        _hand.SendHapticImpulse(0.1f, 0.1f);
     }
 
     private void CloseScissors()
@@ -87,6 +88,7 @@ public class GrabController : MonoBehaviour
         _handSound.PlayScissorsCutSound();
         _handAnimatorManagerVR.AnimatorCrossFade(_scissorsCloseAnimationIndex, _crossFadeTimeToCut);
         StartCoroutine(ScissorsOpeneCoroutine());
+        _hand.SendHapticImpulse(0.25f, 0.3f);
     }
 
     private void DropScissors()
